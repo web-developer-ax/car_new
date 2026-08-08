@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-width=1.0">
+    <title>SpeedX - لعبة سباق السيارات الأسطورية</title>
+    
+    <!-- خطوط جوجل العربية الفخمة -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <!-- مكتبة الأيقونات (FontAwesome) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* المتغيرات والألوان */
+        :root {
+            --primary: #f5b041; /* لون ذهبي/برتقالي فخم */
+            --bg-dark: #0f0f11;
+            --bg-light: #1a1a1d;
+            --text-light: #f4f4f4;
+        }
+
+        /* الإعدادات الأساسية */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            overflow-x: hidden;
+        }
+
+        /* شريط التنقل (Navbar) */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(15, 15, 17, 0.85);
+            backdrop-filter: blur(15px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: 900;
+            color: #fff;
+            text-decoration: none;
+            letter-spacing: 2px;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #ccc;
+            text-decoration: none;
+            font-size: 17px;
+            font-weight: 700;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* القسم الرئيسي (Hero Section) */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            /* خلفية سيارة فخمة مع تدرج لوني داكن */
+            background: linear-gradient(rgba(15,15,17,0.7), rgba(15,15,17,0.9)), url('https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 5rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            text-shadow: 0 5px 25px rgba(0,0,0,0.8);
+            line-height: 1.2;
+        }
+
+        .hero h1 span {
+            color: var(--primary);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: #bbb;
+            max-width: 700px;
+            margin-bottom: 50px;
+            line-height: 1.8;
+        }
+
+        /* زر التحميل الفخم */
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            background: linear-gradient(45deg, #d35400, var(--primary));
+            color: #000;
+            padding: 22px 60px;
+            font-size: 26px;
+            font-weight: 900;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 10px 40px rgba(245, 176, 65, 0.5);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 20px 50px rgba(245, 176, 65, 0.7);
+        }
+
+        .download-btn i {
+            font-size: 32px;
+        }
+
+        /* شريط الإحصائيات */
+        .game-info {
+            display: flex;
+            justify-content: center;
+            gap: 80px;
+            padding: 60px 20px;
+            background: #0a0a0c;
+            flex-wrap: wrap;
+            border-bottom: 1px solid rgba(255,255,255,0.02);
+        }
+
+        .info-item {
+            text-align: center;
+        }
+
+        .info-item h4 {
+            color: var(--primary);
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 5px;
+        }
+
+        .info-item p {
+            color: #777;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        /* قسم المميزات */
+        .features {
+            padding: 120px 50px;
+            background-color: var(--bg-light);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 80px;
+            color: #fff;
+            font-weight: 900;
+        }
+
+        .section-title span {
+            color: var(--primary);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: rgba(255,255,255,0.02);
+            padding: 50px 40px;
+            border-radius: 24px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.04);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--primary);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-15px);
+            background: rgba(255,255,255,0.05);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-icon {
+            font-size: 60px;
+            color: var(--primary);
+            margin-bottom: 25px;
+            display: inline-block;
+            transition: transform 0.4s ease;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1);
+        }
+
+        .feature-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .feature-card p {
+            color: #999;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        /* الفوتر */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            background: #050505;
+            color: #555;
+            font-size: 1.1rem;
+        }
+
+        /* التصميم المتجاوب للشاشات الصغيرة */
+        @media (max-width: 992px) {
+            .hero h1 { font-size: 4rem; }
+            .game-info { gap: 40px; }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 15px 20px;
+                flex-direction: column;
+                gap: 15px;
+            }
+            .nav-links { gap: 20px; }
+            .hero h1 { font-size: 2.8rem; }
+            .hero p { font-size: 1.1rem; }
+            .download-btn { padding: 18px 40px; font-size: 1.4rem; }
+            .features { padding: 80px 20px; }
+            .info-item h4 { font-size: 2.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- شريط التنقل -->
+    <header id="navbar">
+        <a href="#" class="logo">SPEED<span>X</span></a>
+        <ul class="nav-links">
+            <li><a href="#home">الرئيسية</a></li>
+            <li><a href="#features">المميزات</a></li>
+        </ul>
+    </header>
+
+    <!-- واجهة الموقع (Hero) -->
+    <section class="hero" id="home">
+        <h1>عش تجربة <span>السرعة</span> الحقيقية</h1>
+        <p>الجرافيك الأقوى، والسيارات الأندر، ومضامير السباق الأكثر تحدياً. حمل اللعبة الآن وانطلق في عالم لا يعرف حدوداً للسرعة والمنافسة.</p>
+        
+        <!-- زر التحميل الرئيسي -->
+        <a href="#" class="download-btn" id="mainDownloadBtn">
+            <i class="fa-solid fa-cloud-arrow-down"></i>
+            تنزيل اللعبة كاملة 
+        </a>
+    </section>
+
+    <!-- شريط معلومات اللعبة -->
+    <section class="game-info">
+        <div class="info-item">
+            <h4>+120</h4>
+            <p>سيارة رياضية</p>
+        </div>
+        <div class="info-item">
+            <h4>4K</h4>
+            <p>دقة جرافيكس فائقة</p>
+        </div>
+        <div class="info-item">
+            <h4>85GB</h4>
+            <p>حجم الملف الكلي</p>
+        </div>
+        <div class="info-item">
+            <h4>مجانية</h4>
+            <p>لجميع اللاعبين</p>
+        </div>
+    </section>
+
+    <!-- قسم مميزات اللعبة -->
+    <section class="features" id="features">
+        <h2 class="section-title">خصائص <span>أسطورية</span></h2>
+        <div class="features-grid">
+            
+            <div class="feature-card">
+                <i class="fa-solid fa-car-side feature-icon"></i>
+                <h3>محاكاة واقعية للقيادة</h3>
+                <p>فيزياء حركة متطورة تجعلك تشعر بكل منعطف وانجراف. تصميمات داخلية للسيارات متطابقة تماماً مع الواقع لتجربة غامرة.</p>
+            </div>
+            
+            <div class="feature-card">
+                <i class="fa-solid fa-globe feature-icon"></i>
+                <h3>بطولات أونلاين عالمية</h3>
+                <p>سيرفرات فائقة السرعة تدعم ملايين اللاعبين. شارك في بطولات أسبوعية وتسلق قائمة المتصدرين العالمية.</p>
+            </div>
+            
+            <div class="feature-card">
+                <i class="fa-solid fa-spray-can-sparkles feature-icon"></i>
+                <h3>تخصيص لانهائي للسيارات</h3>
+                <p>عدّل محرك سيارتك، غير لونها، أضف ملصقات احترافية، واصنع هوية بصرية خاصة بك ترعب المنافسين على الحلبة.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- تذييل الصفحة -->
+    <footer>
+        <p>&copy; 2026 جميع الحقوق محفوظة. صُمم بواجهة متجاوبة وأداء عالٍ.</p>
+    </footer>
+
+    <!-- أكواد التفاعل المباشر -->
+    <script>
+        // تفاعل زر التحميل (محاكاة لعملية التجهيز والتحميل)
+        document.getElementById('mainDownloadBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            let btn = this;
+            let originalText = btn.innerHTML;
+
+            // المرحلة الأولى: جاري التجهيز
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> جاري تجهيز الملفات...';
+            btn.style.pointerEvents = 'none';
+            btn.style.boxShadow = 'none';
+
+            // المرحلة الثانية: بدء التحميل
+            setTimeout(() => {
+                btn.innerHTML = '<i class="fa-solid fa-check"></i> جاري التحميل الآن';
+                btn.style.background = 'linear-gradient(45deg, #27ae60, #2ecc71)';
+                
+                // إعادة الزر لشكله الطبيعي بعد فترة
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.style.background = '';
+                    btn.style.pointerEvents = 'auto';
+                    btn.style.boxShadow = '0 10px 40px rgba(245, 176, 65, 0.5)';
+                }, 5000);
+            }, 2000);
+        });
+
+        // تأثير تغيير خلفية شريط التنقل عند النزول للأسفل
+        window.addEventListener('scroll', () => {
+            let header = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                header.style.background = 'rgba(10, 10, 12, 0.98)';
+                header.style.padding = '15px 50px';
+                header.style.boxShadow = '0 5px 20px rgba(0,0,0,0.5)';
+            } else {
+                header.style.background = 'rgba(15, 15, 17, 0.85)';
+                header.style.padding = '20px 50px';
+                header.style.boxShadow = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
