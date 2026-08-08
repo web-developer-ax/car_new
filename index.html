@@ -304,10 +304,11 @@
         <p>الجرافيك الأقوى، والسيارات الأندر، ومضامير السباق الأكثر تحدياً. حمل اللعبة الآن وانطلق في عالم لا يعرف حدوداً للسرعة والمنافسة.</p>
         
         <!-- زر التحميل الرئيسي -->
-        <a href="car-v.apk" class="download-btn" id="mainDownloadBtn">
-            <i class="fa-solid fa-cloud-arrow-down"></i>
-            تنزيل اللعبة كاملة 
-        </a>
+        <!-- استبدل الرابط باسم ملف اللعبة الحقيقي لديك -->
+<a href="car-v.apk" download="car-v.apk" class="download-btn" id="mainDownloadBtn">
+    <i class="fa-solid fa-cloud-arrow-down"></i>
+    تنزيل اللعبة كاملة 
+</a>
     </section>
 
     <!-- شريط معلومات اللعبة -->
@@ -364,30 +365,24 @@
     <!-- أكواد التفاعل المباشر -->
     <script>
         // تفاعل زر التحميل (محاكاة لعملية التجهيز والتحميل)
-        document.getElementById('mainDownloadBtn').addEventListener('click', function(e) {
-            e.preventDefault();
-            let btn = this;
-            let originalText = btn.innerHTML;
+        document.getElementById('mainDownloadBtn').addEventListener('click', function() {
+    let btn = this;
+    let originalText = btn.innerHTML;
 
-            // المرحلة الأولى: جاري التجهيز
-            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> جاري تجهيز الملفات...';
-            btn.style.pointerEvents = 'none';
-            btn.style.boxShadow = 'none';
+    // تغيير شكل الزر لإخبار المستخدم أن التحميل بدأ
+    btn.innerHTML = '<i class="fa-solid fa-check"></i> جاري التحميل...';
+    btn.style.pointerEvents = 'none'; // منع الضغط المتكرر
+    btn.style.boxShadow = 'none';
+    btn.style.background = 'linear-gradient(45deg, #27ae60, #2ecc71)';
 
-            // المرحلة الثانية: بدء التحميل
-            setTimeout(() => {
-                btn.innerHTML = '<i class="fa-solid fa-check"></i> جاري التحميل الآن';
-                btn.style.background = 'linear-gradient(45deg, #27ae60, #2ecc71)';
-                
-                // إعادة الزر لشكله الطبيعي بعد فترة
-                setTimeout(() => {
-                    btn.innerHTML = originalText;
-                    btn.style.background = '';
-                    btn.style.pointerEvents = 'auto';
-                    btn.style.boxShadow = '0 10px 40px rgba(245, 176, 65, 0.5)';
-                }, 5000);
-            }, 2000);
-        });
+    // إعادة الزر لشكله الطبيعي بعد 5 ثوانٍ
+    setTimeout(() => {
+        btn.innerHTML = originalText;
+        btn.style.background = '';
+        btn.style.pointerEvents = 'auto';
+        btn.style.boxShadow = '0 10px 40px rgba(245, 176, 65, 0.5)';
+    }, 5000);
+});
 
         // تأثير تغيير خلفية شريط التنقل عند النزول للأسفل
         window.addEventListener('scroll', () => {
